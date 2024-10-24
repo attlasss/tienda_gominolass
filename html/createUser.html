@@ -71,21 +71,13 @@
       cursor: pointer;
     }
 
-    #crearUser {
-      color: var(--yellow);
-      cursor: pointer;
-      text-align: center;
-      margin-top: 10px;
+    p {
+        color: var(--yellow);
+        cursor: pointer;
+        text-align: center;
+        margin-top: 10px;
     }
 
-    #crearUser:hover {
-      text-decoration: underline;
-    }
-
-    #errores {
-      color: var(--pink);
-      margin-top: 10px;
-    }
   </style>
   <body>
     <h1>Registrarse</h1>
@@ -96,39 +88,54 @@
       <input type="password" name="password" id="password" /> <br />
       <label for="password">Repite Contraseña</label>
       <input type="password" name="rpassword" id="rpassword" /> <br />
-      <button type="button" onclick="createUser()">Regístrate</button>
+      <button type="button" onclick="createUser()">Regístrate</button>´
+      <p onclick="login()">Inicia Sesión</p>
     </form>
   </body>
 </html>
 <script>
-  let Users = localStorage.getItem("Users") || [];
-  console.log(Users);
-  function createUser() {
-    let userName = document.getElementById('user');
-    let passwd = document.getElementById('password');
-    let rpasswd = document.getElementById('rpassword');
+  let Users = JSON.parse(localStorage.getItem("Users")) || [];
 
-    console.log(passwd.value)
-    console.log(rpasswd.value)
+  function createUser() {
+    let userName = document.getElementById("user");
+    let passwd = document.getElementById("password");
+    let rpasswd = document.getElementById("rpassword");
+    let check = false;
+    // comprobar si existe el user
+    Users.forEach((element) => {
+      if (element.userName === userName.value) {
+        alert("Ya existe un usuario con ese nombre, elige otro");
+        check = true;
+        return;
+      }
+    });
+
+    // validacion contraseñas
     if (passwd.value != rpasswd.value) {
       alert("Las dos contraseñas deben ser iguales");
+      check = true;
       return;
     }
 
-    try {
-      let user = {
-        userName: userName.value,
-        password: passwd.value,
-      };
+    if (!check) {
+      try {
+        let user = {
+          userName: userName.value,
+          password: passwd.value,
+        };
 
-      console.log(user)
-      Users.push(user);
-      console.log(Users)
+        Users.push(user);
+        // añadir al localstorage
 
-      localStorage.setItem("Users", JSON.stringify(Users));
-      alert("Usuario creado correctamente ! ")
-    } catch (error) {
-      alert("Ha habido un error insperado", error);
+        localStorage.setItem("Users", JSON.stringify(Users));
+        alert("Usuario creado correctamente ! ");
+      } catch (error) {
+        alert("Ha habido un error insperado", error);
+      }
     }
+  }
+
+  function login() {
+    location.href = "login.html"
   }
 </script>

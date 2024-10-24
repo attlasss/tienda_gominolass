@@ -103,18 +103,24 @@
 </html>
 <script>
     function login() {
-        let Users = localStorage.getItem('Users')
+        let user = document.getElementById("user");
+        let passwd = document.getElementById("password");
+
+
+        let Users = JSON.parse(localStorage.getItem('Users'))
         if (!Users) {
             errores.innerHTML = "Parece que no hay usuarios, crea 1 nuevo <p id=\"crearUser\" onclick=\"registrarse()\">aquí</p>"
         }
+
         let encuentra = false;
         Users.forEach(element => {
-            if (element.userName == document.getElementById('user') 
-            && element.password == document.getElementById('Password')) {
+            if (element.userName == user.value
+            && element.password == passwd.value) {
                 encuentra = true;
-                alert("inicia sesión")
+                alert("Sesión iniciada... ahora serás devuelto al carrito. ")
+                location.href="cesta.html"
             } else {
-                errores.innerHTML = "Usuario o Contraseña incorrectos, quieres <p id=\"crearUser\" onclick=\"registrarse()\">Registrarte?</p>"
+                errores.innerHTML = "Usuario o Contraseña incorrectos"
 
             }
         });
