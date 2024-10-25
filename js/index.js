@@ -24,8 +24,8 @@ function addToCart(nombre, idCantidad) {
             precio = 4;
             break;
 
-        case "Fresas Con Chocolate":
-            precio = 4;
+        case "Ferrero":
+            precio = 10;
             break;
 
         case "Oreo":
@@ -36,7 +36,7 @@ function addToCart(nombre, idCantidad) {
             precio = 2;
             break;
 
-        case "M&Ms":
+        case "MMs":
             precio = 1;
             break;
 
@@ -48,20 +48,23 @@ function addToCart(nombre, idCantidad) {
     let precioTotal = precio * cantidad;
 
     try {
-
-        // Buscamos en el carrito si ya ha estado añadido . 
+        let productoExistente = carrito.find(producto => producto.nombre === nombre);
+        if (productoExistente) {
+            // Si el producto ya está en el carrito, actualizamos la cantidad y el precio total
+            productoExistente.cantidad = cantidad;
+            productoExistente.precioTotal = productoExistente.cantidad * precio;
+        } else {
+            // Si no existe, creamos el producto con la cantidad que nos pasan
+            let producto = {
+                nombre: nombre,
+                cantidad: cantidad,
+                precio: precio,
+                precioTotal: precioTotal
+            }
+            console.log(producto);
+            carrito.push(producto);
+        }
         
-        // creamos el producto con la cantidad de chuches que nos pasan.
-        let producto = {
-            nombre: nombre,
-            cantidad: cantidad,
-            precio: precio,
-            precioTotal: precioTotal
-        };
-
-        console.log(producto);
-        carrito.push(producto);
-
         localStorage.setItem("carrito", JSON.stringify(carrito));
 
     } catch (error) {
