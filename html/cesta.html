@@ -76,9 +76,9 @@
 let dinero = localStorage.getItem("dinero") || 9999999;
 let precio_total = 0;
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
 
 document.getElementById('dinero').innerHTML = dinero;
+
 carrito.forEach((element) => {
 document.getElementById("items").innerHTML += `
     <div id="item">
@@ -98,23 +98,31 @@ function back() {
 }
 
 function comprar() {
-    console.log(compras_all)
     // si no tiene dinero no puede comprar
     if ((dinero - precio_total)<0) {
         alert("no tienes dinero! ");
     } else {
-        // restamos el dinero y cesta
+        // Restamos el dinero y contador de la cesta
         dinero = dinero - precio_total;
-        localStorage.setItem("dinero",dinero);
-        localStorage.setItem("contador_cesta",0)
-        // añadimos al array de compras_all
-        console.log(compras_all)        
-        compras_all += carrito;        
-        // reseteamos el carrito
-        carrito = [];
-        localStorage.setItem("carrito",carrito);
-        // alert("comprado ! ahora tienes " + dinero + "euros!")
-        // location.href = "compras.html"
+        localStorage.setItem("dinero", dinero);
+        localStorage.setItem("contador_cesta", 0);
+
+        // Añadimos la fecha de hoy al carrito
+        let hoy = new Date(); 
+        carrito.push(hoy.toISOString()); 
+        
+        let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
+        compras_all.push(carrito);
+        console.log(compras_all);
+
+        // Guardar compras_all como una cadena JSON en localStorage
+        localStorage.setItem("compras_all", JSON.stringify(compras_all));
+
+        // Reseteamos el carrito
+        localStorage.removeItem("carrito");
+        alert("Comprado! Ahora tienes " + dinero + " euros!");
+        location.href = "compras.html";
+
     }
 }
 </script>

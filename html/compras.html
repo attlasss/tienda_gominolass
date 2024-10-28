@@ -69,14 +69,18 @@
 </html>
 <script>
   let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
-  compras_all.forEach((element) => {
-    document.getElementById("items").innerHTML += `
-    <div id="item">
-        <h1 id="nombre">${element.nombre}</h1>
-        <p id="cantidad">Cantidad: ${element.cantidad}</p>
-        <p id="precio">Precio unitario: ${element.precio}€</p>
-        <p id="precio_item">Precio total: ${element.precioTotal}€</p>
-    </div>
-    `;
-  });
+  console.log(compras_all)
+  compras_all.forEach(element => {
+    element.forEach((item) => {
+        document.getElementById("items").innerHTML += `
+        <div id="items">
+            <h1 id="nombre">${item.nombre}</h1>
+            <p id="cantidad">Cantidad: ${item.cantidad}</p>
+            <p id="precio">Precio unitario: ${item.precio}€</p>
+            <p id="precio_item">Precio total: ${item.precioTotal}€</p>
+        </div>
+        `;
+    })
+  })
+    
 </script>

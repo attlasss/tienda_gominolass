@@ -71,7 +71,7 @@ function addToCart(nombre, idCantidad) {
         localStorage.setItem("contador_cesta", contador_cesta);
 
         // Actualizar el contador en la página
-        document.getElementById('contador_cesta').innerHTML = contador_cesta; // Cambiar 'items' por 'contador_cesta'
+        document.getElementById('items').innerHTML = contador_cesta; // Cambiar 'items' por 'contador_cesta'
 
     } catch (error) {
         console.error(error);
