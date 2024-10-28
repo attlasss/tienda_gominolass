@@ -1,11 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comprar</title>
+  </head>
+  <body>
+    <style>
+      /* CSS for the shopping cart */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9; /* Light neutral background */
+        color: #333; /* Dark text for readability */
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+      }
+
+      #items {
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+        margin-bottom: 20px;
+      }
+
+      #item {
+        background-color: #fff; /* White background for items */
+        border: 1px solid #ccc; /* Light border for definition */
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 500px; /* Set a fixed width for items */
+      }
+
+      h1 {
+        font-size: 1.5em;
+        margin: 0 0 10px 0;
+        color: #214e34; /* Green color for item names */
+      }
+
+      p {
+        margin: 5px 0;
+      }
+
+      button {
+        background-color: #7c2a2a; /* Maroon background for the button */
+        color: white; /* White text for contrast */
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #9b2a2a; /* Darker maroon on hover */
+      }
+
+      #precio_total {
+        font-weight: bold; /* Make total price bold */
+      }
+    </style>
+    <h1>Historial de compras</h1>
+    <div id="items"></div>
+  </body>
 </html>
+<script>
+  let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
+  compras_all.forEach((element) => {
+    document.getElementById("items").innerHTML += `
+    <div id="item">
+        <h1 id="nombre">${element.nombre}</h1>
+        <p id="cantidad">Cantidad: ${element.cantidad}</p>
+        <p id="precio">Precio unitario: ${element.precio}€</p>
+        <p id="precio_item">Precio total: ${element.precioTotal}€</p>
+    </div>
+    `;
+  });
+</script>
