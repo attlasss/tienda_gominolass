@@ -103,6 +103,11 @@
 </html>
 <script>
     function login() {
+        // si existe el user en el session storage no hace falta que 
+        // vuelva a iniciar sesión
+        if (sessionStorage.getItem("userTemp")) {
+            
+        }
         let user = document.getElementById("user");
         let passwd = document.getElementById("password");
 
@@ -117,7 +122,9 @@
             if (element.userName == user.value
             && element.password == passwd.value) {
                 encuentra = true;
-                alert("Sesión iniciada... ahora serás devuelto al carrito. ")
+                sessionStorage.setItem("userTemp",element.userName)
+                sessionStorage.setItem("passwdTemp",element.password)
+                alert("Bienvenido! " + element.userName + " ahora serás devuelto al carrito. ")
                 location.href="cesta.html"
             } else {
                 errores.innerHTML = "Usuario o Contraseña incorrectos"
@@ -129,4 +136,5 @@
     function registrarse() {
         location.href = "createUser.html"
     }
+    
 </script>

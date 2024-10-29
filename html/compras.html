@@ -63,24 +63,55 @@
         font-weight: bold; /* Make total price bold */
       }
     </style>
-    <h1>Historial de compras</h1>
+    <header>
+      <h1>Historial de compras del usuario : <span id="user"></span></h1>
+      <h2 onclick="tienda()">Tienda</h2>
+      <h2 onclick="cesta()">🧺</h2>
+    </header>
     <div id="items"></div>
   </body>
 </html>
 <script>
-  let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
-  console.log(compras_all)
-  compras_all.forEach(element => {
-    element.forEach((item) => {
-        document.getElementById("items").innerHTML += `
-        <div id="items">
-            <h1 id="nombre">${item.nombre}</h1>
-            <p id="cantidad">Cantidad: ${item.cantidad}</p>
-            <p id="precio">Precio unitario: ${item.precio}€</p>
-            <p id="precio_item">Precio total: ${item.precioTotal}€</p>
+let user = sessionStorage.getItem("userTemp");
+document.getElementById('user').innerHTML = user
+let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
+console.log(compras_all);
+compras_all.forEach((compra) => {
+let fecha = new Date(compra[0]);
+fecha = fecha.toLocaleString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+});
+
+let historialHTML = `
+    <div class="historial-compra">
+        <h2>Pedido con fecha de : ${fecha}</h2>
+`;
+compra.slice(1).forEach((item) => {
+    historialHTML += `
+        <div class="item">
+            <h3>${item.nombre}</h3>
+            <p>Cantidad: ${item.cantidad}</p>
+            <p>Precio unitario: ${item.precio}€</p>
+            <p>Precio total: ${item.precioTotal}€</p>
         </div>
-        `;
-    })
-  })
-    
+    `;
+});
+
+// Cerrar el contenedor de la compra
+historialHTML += `</div>`;
+
+document.getElementById("items").innerHTML += historialHTML;
+});
+
+function tienda() {
+location.href = "index.html";
+}
+
+function cesta() {
+location.href = "cesta.html";
+}
 </script>

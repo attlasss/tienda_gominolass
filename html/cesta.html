@@ -8,121 +8,184 @@
   <body>
     <style>
       /* CSS for the shopping cart */
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9; /* Light neutral background */
-        color: #333; /* Dark text for readability */
+        background-color: #f9f9f9;
+        color: #333;
         margin: 0;
         padding: 20px;
         text-align: center;
       }
 
-      #items {
-        display: flex; /* Use flexbox for layout */
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center items horizontally */
-        margin-bottom: 20px;
-    }
+      header {
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        background-color: #214e34; /* Verde oscuro */
+        color: white;
+      }
 
-    #item {
-        background-color: #fff; /* White background for items */
-        border: 1px solid #ccc; /* Light border for definition */
+      header div {
+        display: flex;
+      }
+
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      header p {
+        font-size: 1.2em;
+        cursor: pointer;
+        margin: 0;
+        padding: 5px 10px;
+      }
+
+      header #dinero {
+        font-weight: bold;
+        margin-left: 5px;
+      }
+
+      #items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      #item {
+        background-color: #fff;
+        border: 1px solid #ccc;
         border-radius: 5px;
         padding: 15px;
         margin-bottom: 15px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        width: 500px; /* Set a fixed width for items */
-    }
-
-
-      h1 {
-        font-size: 1.5em;
-        margin: 0 0 10px 0;
-        color: #214e34; /* Green color for item names */
+        width: 100%;
+        max-width: 500px;
+        text-align: left;
       }
 
-      p {
+      #item h1 {
+        font-size: 1.5em;
+        color: #214e34; /* Verde oscuro para nombres */
+        margin-bottom: 10px;
+      }
+
+      #item p {
         margin: 5px 0;
+        color: #666;
+      }
+
+      #precio_total {
+        font-weight: bold;
+        color: #214e34;
       }
 
       button {
-        background-color: #7c2a2a; /* Maroon background for the button */
-        color: white; /* White text for contrast */
+        background-color: #7c2a2a; /* Marrón oscuro */
+        color: white;
         border: none;
         border-radius: 5px;
         padding: 10px 15px;
         font-size: 1em;
         cursor: pointer;
         transition: background-color 0.3s;
+        margin-top: 20px;
       }
 
       button:hover {
-        background-color: #9b2a2a; /* Darker maroon on hover */
+        background-color: #9b2a2a; /* Marrón un poco más oscuro al pasar el cursor */
       }
 
-      #precio_total {
-        font-weight: bold; /* Make total price bold */
+      footer {
+        font-size: 1.2em;
+        color: #333;
+        margin-top: 20px;
       }
     </style>
-    <h1>Cesta</h1>
-    <p><span id="dinero"></span>€</p>
-    <p onclick="back()">Volver a la tienda</p>
+    <header>
+      <div>
+        <h1>Cesta</h1>
+      </div>
+      <div>
+        <p><span id="dinero"></span>€</p>
+        <p onclick="back()">🏪</p>
+      </div>
+    </header>
     <div id="items"></div>
     <p>Precio Total : <span id="precio_total">0</span>€</p>
     <button type="button" onclick="comprar()">Comprar</button>
   </body>
 </html>
 <script>
-let dinero = localStorage.getItem("dinero") || 9999999;
+const Users = JSON.parse(localStorage.getItem("Users"))
+let dinero = 0
+let currentUser; 
+
+Users.forEach(element => {
+    if (element.userName === sessionStorage.getItem("userTemp")) {
+        currentUser = element;
+        dinero = element.dinero
+    }
+});
+
 let precio_total = 0;
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-document.getElementById('dinero').innerHTML = dinero;
+document.getElementById("dinero").innerHTML = dinero;
 
 carrito.forEach((element) => {
 document.getElementById("items").innerHTML += `
-    <div id="item">
-        <h1 id="nombre">${element.nombre}</h1>
-        <p id="cantidad">Cantidad: ${element.cantidad}</p>
-        <p id="precio">Precio unitario: ${element.precio}€</p>
-        <p id="precio_item">Precio total: ${element.precioTotal}€</p>
-    </div>
-    `;
-precio_total += element.precioTotal;   
+<div id="item">
+    <h1 id="nombre">${element.nombre}</h1>
+    <p id="cantidad">Cantidad: ${element.cantidad}</p>
+    <p id="precio">Precio unitario: ${element.precio}€</p>
+    <p id="precio_item">Precio total: ${element.precioTotal}€</p>
+</div>
+`;
+precio_total += element.precioTotal;
 });
 
-document.getElementById('precio_total').innerHTML = precio_total
+document.getElementById("precio_total").innerHTML = precio_total;
 
 function back() {
-    location.href="index.html"
+location.href = "index.html";
 }
 
 function comprar() {
-    // si no tiene dinero no puede comprar
-    if ((dinero - precio_total)<0) {
-        alert("no tienes dinero! ");
-    } else {
-        // Restamos el dinero y contador de la cesta
-        dinero = dinero - precio_total;
-        localStorage.setItem("dinero", dinero);
-        localStorage.setItem("contador_cesta", 0);
+// si no tiene dinero no puede comprar
+if (dinero - precio_total < 0) {
+    alert("no tienes dinero! ");
+} else {
+    // Restamos el dinero y contador de la cesta
+    dinero = dinero - precio_total;
+    currentUser.dinero = dinero;
+    
+    localStorage.setItem("Users",JSON.stringify(currentUser));
+    localStorage.setItem("contador_cesta", 0);
 
-        // Añadimos la fecha de hoy al carrito
-        let hoy = new Date(); 
-        carrito.push(hoy.toISOString()); 
-        
-        let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
-        compras_all.push(carrito);
-        console.log(compras_all);
+    // Añadimos la fecha de hoy al carrito
+    let hoy = new Date();
+    carrito.unshift(hoy.toISOString());
 
-        // Guardar compras_all como una cadena JSON en localStorage
-        localStorage.setItem("compras_all", JSON.stringify(compras_all));
+    let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
+    compras_all.unshift(carrito);
+    console.log(compras_all);
 
-        // Reseteamos el carrito
-        localStorage.removeItem("carrito");
-        alert("Comprado! Ahora tienes " + dinero + " euros!");
-        location.href = "compras.html";
+    // Guardar compras_all como una cadena JSON en localStorage
+    localStorage.setItem("compras_all", JSON.stringify(compras_all));
 
-    }
+    // Reseteamos el carrito
+    localStorage.removeItem("carrito");
+    alert("Comprado! Ahora tienes " + dinero + " euros!");
+    location.href = "compras.html";
+}
 }
 </script>

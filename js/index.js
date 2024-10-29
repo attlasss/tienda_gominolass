@@ -67,6 +67,7 @@ function addToCart(nombre, idCantidad) {
         contador_cesta += cantidad;
 
         // Guardar los cambios en localStorage
+        alert("Producto añadido al carrito!")
         localStorage.setItem("carrito", JSON.stringify(carrito));
         localStorage.setItem("contador_cesta", contador_cesta);
 
@@ -81,9 +82,20 @@ function addToCart(nombre, idCantidad) {
 
 // Funciones para navegar
 function cesta() {
-    location.href = "cesta.html";
+  // si no ha iniciado sesion devolver al login
+    if (!sessionStorage.getItem("userTemp")) {
+      alert("No has iniciado sesión! Seras retornado al login!");
+      location.href="login.html";
+    } else {
+      location.href = "cesta.html";
+    }
+    
 }
 
 function login() {
     location.href = "login.html";
+}
+
+function compras() {
+  location.href="compras.html"
 }

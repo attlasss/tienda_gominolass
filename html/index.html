@@ -1,153 +1,194 @@
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Tienda de Gominolas</title>
-      <link rel="stylesheet" href="../css/style.css">
-    </head>
-    <body>
-      <header>
-          <h1>Tienda de Gominolas - Carolina Morillo</h1>
-          <span></span>
-          <img src="https://i.pinimg.com/564x/e2/40/49/e24049628cbd3f9f503ef4e4e62675cb.jpg" alt="" height="100" width="100" onclick="cesta()">
-          <p id="items"></p>
-          <h2 onclick="login()">Iniciar Sesión</h2>
-      </header>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda de Gominolas</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Tienda de Gominolas - Carolina Morillo</h1>
+      </div>
+      <div>
+        <h2 onclick="cesta()">🧺 <span id="items">0</span></h2>
+        <h2 id="login" onclick="login()">Iniciar Sesión</h2>
+        <h2 onclick="compras()" id="compras" display="none">📋</h2>
+      </div>
+    </header>
 
-      <article>
-        <h2>Chuches</h2>
-        <div class="container">
-          <div class="card">
-            <img src="https://i.pinimg.com/564x/97/44/10/97441097be40b2148cb3bfbbb2524e44.jpg" alt="" class="imgGummy" />
-            <h3>Ositos</h3>
-            <p class="precio"> 1€</p>
-            <label for="cantidadBears">Cantidad</label>
-            <select name="cantidad" id="cantidadOsitos">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button onclick="addToCart('Ositos','cantidadOsitos')">Añadir a la Cesta</button>
-          </div>
-          <div class="card">
-            <img
-              src="https://i.pinimg.com/enabled/736x/28/ae/3f/28ae3f1444c16a92a2245ce1922af30a.jpg"
-              alt=""
-              class="imgGummy"
-            />
-            <h3>Fresas</h3>
-            <p class="precio"> 2€</p>
-            <label for="cantidadFresas">Cantidad</label>
-            <select name="cantidad" id="cantidadFresas">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button onclick="addToCart('Fresas','cantidadFresas')">Añadir a la Cesta</button>
-          </div>
-          <div class="card">
-            <img
-              src="https://i.pinimg.com/enabled/564x/d2/cb/f0/d2cbf08ad519019dfbd63b562614d759.jpg"
-              alt=""
-              class="imgGummy"
-            />
-            <h3>Tiburones</h3>
-            <p class="precio"> 3€</p>
-            <label for="cantidadTiburones">Cantidad</label>
-            <select name="cantidad" id="cantidadTiburones">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button onclick="addToCart('Tiburones','cantidadTiburones')">Añadir a la Cesta</button>
-          </div>
-          <div class="card">
-            <img src="https://i.pinimg.com/564x/cd/f5/19/cdf5197cb2d493c81d858625d27dd6df.jpg" alt="" class="imgGummy" />
-            <h3>Sandias</h3>
-            <p class="precio"> 4€</p>
-            <label for="cantidadSandias">Cantidad</label>
-            <select name="cantidad" id="cantidadSandias">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button onclick="addToCart('Sandias','cantidadSandias')">Añadir a la Cesta</button>
-          </div>
+    <article>
+      <h2>Chuches</h2>
+      <div class="container">
+        <div class="card">
+          <img
+            src="https://i.pinimg.com/564x/97/44/10/97441097be40b2148cb3bfbbb2524e44.jpg"
+            alt=""
+            class="imgGummy"
+          />
+          <h3>Ositos</h3>
+          <p class="precio">1€</p>
+          <select name="cantidad" id="cantidadOsitos">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button onclick="addToCart('Ositos','cantidadOsitos')">
+            Añadir a la Cesta
+          </button>
         </div>
-        <h2>Chocolates</h2>
-        <div class="container">
-          <div class="card">
-            <img src="https://i.pinimg.com/564x/d8/c4/d6/d8c4d6f30be58ed141fc1cc9eed02cc2.jpg" alt="" class="imgGummy" />
-            <h3>Ferrero Rocher</h3>
-            <p class="precio"> 10€</p>
-            <label for="cantidadFerrero">Cantidad</label>
-            <select name="cantidad" id="cantidadFerrero">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button onclick="addToCart('Ferrero','cantidadFerrero')">Añadir a la Cesta</button>
-          </div>
-          <div class="card">
-            <img src="https://i.pinimg.com/736x/57/a8/40/57a84053b95569ad8fc77a2b5939ca8a.jpg" alt="" class="imgGummy" />
-            <h3>Oreo</h3>
-            <p class="precio"> 2€</p>
-            <label for="cantidadOreo">Cantidad</label>
-            <select name="cantidad" id="cantidadOreo">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button onclick="addToCart('Oreo','cantidadOreo')">Añadir a la Cesta</button>
-          </div>
-          <div class="card">
-            <img src="https://i.pinimg.com/564x/3d/da/e7/3ddae7c282788abf8bb97f2047289e2e.jpg" class="imgGummy" />
-            <h3>Conguitos</h3>
-            <p class="precio"> 2€</p>
-            <label for="cantidadConguitos">Cantidad</label>
-            <select name="cantidad" id="cantidadConguitos">
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button onclick="addToCart('Conguitos','cantidadConguitos')">Añadir a la Cesta</button>
-          </div>
-          <div class="card">
-            <img src="https://i.pinimg.com/enabled/564x/9e/31/c5/9e31c52017511db1d2ce2bba5d233cd5.jpg" alt="" class="imgGummy" />
-            <h3>M&Ms</h3>
-            <p class="precio"> 1€</p>
-            <label for="cantidadMMs">Cantidad</label>
-            <select name="cantidad" id="cantidadMMs">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button onclick="addToCart('MMs','cantidadMMs')">Añadir a la Cesta</button>
-          </div>
+        <div class="card">
+          <img
+            src="https://i.pinimg.com/enabled/736x/28/ae/3f/28ae3f1444c16a92a2245ce1922af30a.jpg"
+            alt=""
+            class="imgGummy"
+          />
+          <h3>Fresas</h3>
+          <p class="precio">2€</p>
+          <select name="cantidad" id="cantidadFresas">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button onclick="addToCart('Fresas','cantidadFresas')">
+            Añadir a la Cesta
+          </button>
         </div>
-      </article>
-      <button onclick="cesta()">Ir a Cesta</button>
-      <footer>
-        <p>Carolina Morillo</p>
-      </footer>
-    </body>
-  </html>
-  <script src="../js/index.js"></script>
+        <div class="card">
+          <img
+            src="https://i.pinimg.com/enabled/564x/d2/cb/f0/d2cbf08ad519019dfbd63b562614d759.jpg"
+            alt=""
+            class="imgGummy"
+          />
+          <h3>Tiburones</h3>
+          <p class="precio">3€</p>
+          <select name="cantidad" id="cantidadTiburones">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button onclick="addToCart('Tiburones','cantidadTiburones')">
+            Añadir a la Cesta
+          </button>
+        </div>
+        <div class="card">
+          <img
+            src="https://i.pinimg.com/564x/cd/f5/19/cdf5197cb2d493c81d858625d27dd6df.jpg"
+            alt=""
+            class="imgGummy"
+          />
+          <h3>Sandias</h3>
+          <p class="precio">4€</p>
+          <select name="cantidad" id="cantidadSandias">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button onclick="addToCart('Sandias','cantidadSandias')">
+            Añadir a la Cesta
+          </button>
+        </div>
+      </div>
+      <h2>Chocolates</h2>
+      <div class="container">
+        <div class="card">
+          <img
+            src="https://i.pinimg.com/564x/d8/c4/d6/d8c4d6f30be58ed141fc1cc9eed02cc2.jpg"
+            alt=""
+            class="imgGummy"
+          />
+          <h3>Ferrero Rocher</h3>
+          <p class="precio">10€</p>
+          <select name="cantidad" id="cantidadFerrero">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button onclick="addToCart('Ferrero','cantidadFerrero')">
+            Añadir a la Cesta
+          </button>
+        </div>
+        <div class="card">
+          <img
+            src="https://i.pinimg.com/736x/57/a8/40/57a84053b95569ad8fc77a2b5939ca8a.jpg"
+            alt=""
+            class="imgGummy"
+          />
+          <h3>Oreo</h3>
+          <p class="precio">2€</p>
+          <select name="cantidad" id="cantidadOreo">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button onclick="addToCart('Oreo','cantidadOreo')">
+            Añadir a la Cesta
+          </button>
+        </div>
+        <div class="card">
+          <img
+            src="https://i.pinimg.com/564x/3d/da/e7/3ddae7c282788abf8bb97f2047289e2e.jpg"
+            class="imgGummy"
+          />
+          <h3>Conguitos</h3>
+          <p class="precio">2€</p>
+          <select name="cantidad" id="cantidadConguitos">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button onclick="addToCart('Conguitos','cantidadConguitos')">
+            Añadir a la Cesta
+          </button>
+        </div>
+        <div class="card">
+          <img
+            src="https://i.pinimg.com/enabled/564x/9e/31/c5/9e31c52017511db1d2ce2bba5d233cd5.jpg"
+            alt=""
+            class="imgGummy"
+          />
+          <h3>M&Ms</h3>
+          <p class="precio">1€</p>
+          <select name="cantidad" id="cantidadMMs">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button onclick="addToCart('MMs','cantidadMMs')">
+            Añadir a la Cesta
+          </button>
+        </div>
+      </div>
+    </article>
+    <h2 onclick="cesta()">🧺</h2>
+    <footer>
+      <p>Carolina Morillo</p>
+    </footer>
+  </body>
+</html>
+<script>
+  if (sessionStorage.getItem("userTemp")) {
+    // Si existe, ocultar el botón "Iniciar Sesión"
+    document.getElementById("login").style.display = "none";
+    document.getElementById("compras").style.display = "block";
+  }
+</script>
+<script src="../js/index.js"></script>
