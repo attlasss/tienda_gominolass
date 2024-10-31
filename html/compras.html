@@ -68,50 +68,56 @@
       <h2 onclick="tienda()">Tienda</h2>
       <h2 onclick="cesta()">🧺</h2>
     </header>
-    <div id="items"></div>
+    <span id="items"></span>
   </body>
 </html>
 <script>
-let user = sessionStorage.getItem("userTemp");
-document.getElementById('user').innerHTML = user
-let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
-console.log(compras_all);
-compras_all.forEach((compra) => {
-let fecha = new Date(compra[0]);
-fecha = fecha.toLocaleString("es-ES", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-});
+  let user = sessionStorage.getItem("userTemp");
+  document.getElementById("user").innerHTML = user;
+  let compras_all =
+    JSON.parse(localStorage.getItem(`compras_all_${user}`)) || [];
 
-let historialHTML = `
-    <div class="historial-compra">
-        <h2>Pedido con fecha de : ${fecha}</h2>
-`;
-compra.slice(1).forEach((item) => {
+  let historialHTML = "";
+  compras_all.forEach((compra) => {
+    // El primer elemento es la fecha
+    let fecha = new Date(compra[0]).toLocaleString("es-ES", {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+      });
+
+    // Empieza el HTML para este pedido
     historialHTML += `
-        <div class="item">
-            <h3>${item.nombre}</h3>
-            <p>Cantidad: ${item.cantidad}</p>
-            <p>Precio unitario: ${item.precio}€</p>
-            <p>Precio total: ${item.precioTotal}€</p>
-        </div>
+      <div class="historial-compra">
+          <h2>Pedido con fecha de: ${fecha}</h2>
     `;
-});
 
-// Cerrar el contenedor de la compra
-historialHTML += `</div>`;
+    // Los siguientes elementos son los productos del pedido
+    compra.slice(1).forEach((item) => {
+      historialHTML += `
+            <div class="item">
+                <h3>${item.nombre}</h3>
+                <p>Cantidad: ${item.cantidad}</p>
+                <p>Precio unitario: ${item.precio}€</p>
+                <p>Precio total: ${item.precioTotal}€</p>
+            </div>
+        `;
+    });
 
-document.getElementById("items").innerHTML += historialHTML;
-});
+    // Cierra el contenedor del pedido
+    historialHTML += `</div>`;
+  });
 
-function tienda() {
-location.href = "index.html";
-}
+  // Inserta todo el historial generado en el contenedor con id "items"
+  document.getElementById("items").innerHTML = historialHTML;
 
-function cesta() {
-location.href = "cesta.html";
-}
+  function tienda() {
+    location.href = "index.html";
+  }
+
+  function cesta() {
+    location.href = "cesta.html";
+  }
 </script>

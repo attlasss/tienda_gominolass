@@ -2,7 +2,7 @@
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 // obtener contador de la cesta.
 let contador_cesta = parseInt(localStorage.getItem("contador_cesta")) || 0;
-
+document.getElementById('items').innerHTML = contador_cesta; 
 function addToCart(nombre, idCantidad) {
     let precio;
     // obtener el numero de cantidad y convertirlo a número entero
@@ -72,7 +72,7 @@ function addToCart(nombre, idCantidad) {
         localStorage.setItem("contador_cesta", contador_cesta);
 
         // Actualizar el contador en la página
-        document.getElementById('items').innerHTML = contador_cesta; // Cambiar 'items' por 'contador_cesta'
+        document.getElementById('items').innerHTML = contador_cesta; 
 
     } catch (error) {
         console.error(error);

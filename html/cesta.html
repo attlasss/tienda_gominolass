@@ -120,6 +120,7 @@
       </div>
     </header>
     <div id="items"></div>
+    <p id="borrar_items" onclick="borrar()">Borrar Items</p>
     <p>Precio Total : <span id="precio_total">0</span>€</p>
     <button type="button" onclick="comprar()">Comprar</button>
   </body>
@@ -168,24 +169,40 @@ if (dinero - precio_total < 0) {
     dinero = dinero - precio_total;
     currentUser.dinero = dinero;
     
-    localStorage.setItem("Users",JSON.stringify(currentUser));
+    let userIndex = Users.findIndex(user => user.id === currentUser.id);
+
+    if (userIndex !== -1) {
+      Users[userIndex] = currentUser;
+    } else {
+      Users.push(currentUser);
+    }
+
+    // Guarda el array actualizado en localStorage
+    localStorage.setItem("Users", JSON.stringify(Users));
     localStorage.setItem("contador_cesta", 0);
 
     // Añadimos la fecha de hoy al carrito
     let hoy = new Date();
     carrito.unshift(hoy.toISOString());
 
-    let compras_all = JSON.parse(localStorage.getItem("compras_all")) || [];
+    let compras_all = JSON.parse(localStorage.getItem(`compras_all_${currentUser.userName}`)) || [];
     compras_all.unshift(carrito);
     console.log(compras_all);
 
     // Guardar compras_all como una cadena JSON en localStorage
-    localStorage.setItem("compras_all", JSON.stringify(compras_all));
+    localStorage.setItem(`compras_all_${currentUser.userName}`, JSON.stringify(compras_all));
 
     // Reseteamos el carrito
     localStorage.removeItem("carrito");
     alert("Comprado! Ahora tienes " + dinero + " euros!");
     location.href = "compras.html";
 }
+}
+
+function borrar() {
+  localStorage.removeItem("carrito")
+  localStorage.removeItem("contador_cesta")
+  alert("Items borrados!")
+  document.getElementById("items").innerHTML = ""
 }
 </script>

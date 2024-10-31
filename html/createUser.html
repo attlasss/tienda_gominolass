@@ -117,12 +117,15 @@
       return;
     }
 
+    // dinero puede ser un numero random entre 1-989
+    let dinero = Math.floor(Math.random() * 990);
+
     if (!check) {
       try {
         let user = {
           userName: userName.value,
           password: passwd.value,
-          dinero: 99999,
+          dinero: dinero,
         };
 
         Users.push(user);
@@ -130,6 +133,7 @@
 
         localStorage.setItem("Users", JSON.stringify(Users));
         alert("Usuario creado correctamente ! ");
+        login()
       } catch (error) {
         alert("Ha habido un error insperado", error);
       }
